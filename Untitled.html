@@ -2,11 +2,7 @@
 <html>
 	<head>
 	    <title>JS plumb test</title>
-        
-        
         <script type="text/javascript" src="./jsplumb.js"></script>
-
-
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 <script
@@ -16,23 +12,11 @@
 
     </head>
     <style>
-        	._jsPlumb_overlay {
-		z-index: 51;
-	}
-	
-	._jsPlumb_endpoint {
-		z-index: 50;
-		/*cursor: move;*/
-	}
-	
-	._jsPlumb_connector {
-		z-index: 1;
-	}
-	
-	.jsplumb-connector:hover {
-		cursor: pointer;
-	}
-	/*Au016*/
+        svg.redLine path {
+    position: absolute;
+    stroke:red;
+    stroke-width:10;
+  }
 	#previous,
   #current {
     border: 1px solid #bbb;
@@ -48,70 +32,52 @@
     white-space: nowrap;
 	}
     </style>
-	<body >
-            <div class="container">
-                    <div class="row" id="drag_canvas">
-                        <div id="previous" class="col-sm-4">
-                            <ol>
-                                <li class="list-item">Source 1</li>
-                                <li class="list-item">Some really looooooong text goes here...</li>
-                                <li class="list-item">Source 3</li>
-                                <li id="qwer" class="list-item">Source 4</li>
-                                <li class="list-item">Source 5</li>
-                                <li id="q" class="list-item">Source 6</li>
-                                <li class="list-item">Source 7</li>
-                                <li class="list-item">Source 8</li>
-                            </ol>
-                        </div>
-                        <div calss="col-md-4"><p>222222222222222222222222222222</p></div>
-                        <div id="current" class="col-sm-4">
-                            <ol>
-                                <li class="list-item">Target 1</li>
-                                <li class="list-item">Target 2</li>
-                                <li class="list-item">Target 3</li>
-                                <li class="list-item">Target 4</li>
-                                <li class="list-item">Target 5</li>
-                                <li class="list-item">Target 6</li>
-                                <li class="list-item">Target 7</li>
-                                <li class="list-item">Target 8</li>
-                                <li id="asdf" class="list-item">Target 9</li>
-                                <li class="list-item">Target 10</li>
-                                <li id="w" class="list-item">Target 11</li>
-                                <li class="list-item">Target 12</li>
-                            </ol>
-                        </div>
-                    </div>
+<body>
+    <div class="container">            
+        
+        <div class="row" id="drag_canvas">
+                <div id="previous" class="col-sm-5">
+                    <ol>
+                        <li class="list-item">Source 1</li>
+                        <li class="list-item">Some really looooooong text goes here...</li>
+                        <li class="list-item">Source 3</li>
+                        <li id="qwer" class="list-item">Source 4</li>
+                        <li class="list-item">Source 5</li>
+                        <li id="q" class="list-item">Source 6</li>
+                        <li class="list-item">Source 7</li>
+                        <li class="list-item">Source 8</li>
+                    </ol>
                 </div>
-    </body>
+                <div class="col-md-2"><p></p></div>
+                <div id="current" class="col-sm-5">
+                    <ol>
+                        <li class="list-item">Target 1</li>
+                        <li class="list-item">Target 2</li>
+                        <li class="list-item">Target 3</li>
+                        <li class="list-item">Target 4</li>
+                        <li class="list-item">Target 5</li>
+                        <li class="list-item">Target 6</li>
+                        <li class="list-item">Target 7</li>
+                        <li class="list-item">Target 8</li>
+                        <li id="asdf" class="list-item">Target 9</li>
+                        <li class="list-item">Target 10</li>
+                        <li id="w" class="list-item">Target 11</li>
+                        <li class="list-item">Target 12</li>
+                    </ol>
+                </div>
+        </div>
+        <div calss="row" style="position:relative;z-index:2;background:green;">
+            <p>asdfasdfasf</p>
+            <p>sdfasdfasdf</p>
+        </div>
+    </div>
     
+    
+   
+</body>
+
     <script>
    jsPlumb.ready(function() {
-/*
-            var plumbInstance = jsPlumb.getInstance({Container: $("#drag_canvas") });
-            plumbInstance.importDefaults({
-                PaintStyle: {
-                    lineWidth: 10,
-                    strokeStyle: '#000000',
-                },
-                Connector: ['Straight', {
-                    stub: 30
-                }],
-                Endpoint: ["Dot", {radius: 0.00001}]     
-            });
-
-            // Add endpoints to each individual item
-            plumbInstance.makeSource($('#previous .list-item'), {
-                anchor: "RightMiddle"
-            });
-
-            plumbInstance.makeTarget($('#current .list-item'), {
-                anchor: "LeftMiddle"
-            });
-
-
-            plumbInstance.connect({source:"qwer",target:"asdf"});
-*/
-            
                 jsPlumb.setContainer($("#drag_canvas"))
                 jsPlumb.importDefaults({
                     Connector : ['Straight', {stub: 30}],
@@ -120,19 +86,19 @@
                 })
                 jsPlumb.connect({
                     source:"qwer", 
-                    target:"asdf"
+                    target:"asdf",
+        cssClass:"redLine"
                 });
                 jsPlumb.connect({
                     source:"q", 
-                    target:"w"
+                    target:"w",
+        cssClass:"redLine"
                 });
                 $( window ).scroll(function() {
                     jsPlumb.repaintEverything()
                 });
                 $('#previous,#current').scroll(function() {
                     jsPlumb.repaintEverything();
-                    
-                    console.log(111)
                 });
 
 
